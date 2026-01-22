@@ -16,10 +16,7 @@ public class FindElementTest {
     @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
-        driver.get("https://ilcarro.web.app");
-        //maximize browser to windows
         driver.manage().window().maximize();
-        //wait to upload all elements
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
@@ -30,26 +27,27 @@ public class FindElementTest {
         }
     }
 
+    // ================= TAG =================
     @Test
     public void findElementByTagName() {
-        //fin an element
-        //tag name -> h1
+
+        driver.get("https://ilcarro.web.app");
+
         WebElement h1 = driver.findElement(By.tagName("h1"));
         System.out.println(h1.getText());
 
         WebElement h2 = driver.findElement(By.tagName("h2"));
         System.out.println(h2.getText());
 
-        WebElement link = driver.findElement(By.tagName("a"));
-        System.out.println(link.getAttribute("class"));
-
-        //list of elements
         List<WebElement> links = driver.findElements(By.tagName("a"));
-        System.out.println(links.size());
+        System.out.println("Links count: " + links.size());
     }
 
+    // ================= ID =================
     @Test
     public void findElementById() {
+
+        driver.get("https://ilcarro.web.app");
 
         WebElement city = driver.findElement(By.id("city"));
         System.out.println(city.getAttribute("id"));
@@ -58,8 +56,12 @@ public class FindElementTest {
         System.out.println(dates.getAttribute("id"));
     }
 
+    // ================= CLASS =================
     @Test
     public void findElementByClassName() {
+
+        driver.get("https://ilcarro.web.app");
+
         WebElement telephone = driver.findElement(By.className("telephone"));
         System.out.println(telephone.getText());
 
@@ -67,79 +69,56 @@ public class FindElementTest {
         System.out.println(description.getText());
     }
 
-    @Test
-    public void findElementByLinkText() {
-        WebElement linkText = driver.findElement(By.linkText("Let the car work"));
-        System.out.println(linkText.getText());
-    }
-
-    @Test
-    public void findElementByPartialLinkText(){
-        WebElement partialLink = driver.findElement(By.partialLinkText("work"));
-        System.out.println(partialLink.getText());
-    }
-
-    @Test
-    public void findElementByCssSelector() {
-        // driver.findElement(By.tagName("h1"));
-        //tag name "h1" -> css "h1"
-        driver.findElement(By.cssSelector("h1"));
-
-        //driver.findElement(By.id("city"));
-        // id "city" -> css "#city"
-        driver.findElement(By.cssSelector("#city"));
-
-        // driver.findElement(By.className("telephone"));
-        // class "telephone" -> css ".telephone"
-        driver.findElement(By.cssSelector(".telephone"));
-
-        // [attr='par']
-        driver.findElement(By.cssSelector("[href='/search']"));
-        driver.findElement(By.cssSelector("[for='city']"));
-
-        //contains -> *
-        driver.findElement(By.cssSelector("[href*='car']"));
-        //start -> ^
-        driver.findElement(By.cssSelector("[href^='/let']"));
-        //end to -> $
-        driver.findElement(By.cssSelector("[href$='work']"));
-
-        //composite cssSelector
-        driver.findElement(By.cssSelector("a.navigation-link[href='/search']"));// tag+class+pare
-        driver.findElement(By.cssSelector("div.social-networks")); // tag+class
-
-        driver.findElement(By.cssSelector(".logo>img")); // > one step below
-        driver.findElement(By.cssSelector(".feedback .feedback-date")); // <space> one or more steps below
-
-        //<tag> or <id> or <class>:nth-child(n)
-        WebElement feedback = driver.findElement(By.cssSelector(".feedback:nth-child(5)"));
-        System.out.println(feedback.getText());
-
-        driver.findElement(By.cssSelector("[type='submit']"));
-        driver.findElement(By.cssSelector(".title-container span.title")); // class + <space> + tag + class
-    }
+    // ================= CSS SELECTOR (DemoWebShop) =================
     @Test
     public void findSameElementsByCssSelector_DemoWebShop() {
 
         driver.get("https://demowebshop.tricentis.com/");
 
-        // ===== element found earlier by TAG =====
-        // tag: input -> css: input
+        // TAG -> input
         WebElement input = driver.findElement(By.cssSelector("input"));
         System.out.println("Input displayed: " + input.isDisplayed());
 
-        // ===== element found earlier by ID =====
-        // id: small-searchterms -> css: #small-searchterms
-        WebElement searchInput = driver.findElement(By.cssSelector("#small-searchterms"));
+        // ID -> #small-searchterms
+        WebElement searchInput =
+                driver.findElement(By.cssSelector("#small-searchterms"));
         System.out.println("Search input id: " + searchInput.getAttribute("id"));
 
-        // ===== element found earlier by CLASS =====
-        // class: header-logo -> css: .header-logo
-        WebElement logo = driver.findElement(By.cssSelector(".header-logo"));
+        // CLASS -> .header-logo
+        WebElement logo =
+                driver.findElement(By.cssSelector(".header-logo"));
         System.out.println("Logo displayed: " + logo.isDisplayed());
 
-        // class: cart-label -> css: .cart-label
-        WebElement cart = driver.findElement(By.cssSelector(".cart-label"));
+        // CLASS -> .cart-label
+        WebElement cart =
+                driver.findElement(By.cssSelector(".cart-label"));
+        System.out.println("Cart text: " + cart.getText());
+    }
+
+    // ================= XPATH (DemoWebShop) =================
+    @Test
+    public void findSameElementsByXpath_DemoWebShop() {
+
+        driver.get("https://demowebshop.tricentis.com/");
+
+        // TAG -> //input
+        WebElement input =
+                driver.findElement(By.xpath("//input"));
+        System.out.println("Input displayed: " + input.isDisplayed());
+
+        // ID -> //input[@id='small-searchterms']
+        WebElement searchInput =
+                driver.findElement(By.xpath("//input[@id='small-searchterms']"));
+        System.out.println("Search input id: " + searchInput.getAttribute("id"));
+
+        // CLASS -> //*[@class='header-logo']
+        WebElement logo =
+                driver.findElement(By.xpath("//*[@class='header-logo']"));
+        System.out.println("Logo displayed: " + logo.isDisplayed());
+
+        // CLASS -> //*[@class='cart-label']
+        WebElement cart =
+                driver.findElement(By.xpath("//*[@class='cart-label']"));
         System.out.println("Cart text: " + cart.getText());
     }
 }

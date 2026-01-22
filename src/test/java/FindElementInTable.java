@@ -60,4 +60,26 @@ public class FindElementInTable {
 
 
     }
+
+    @Test
+    public void findXpathInTable() {
+        //get numbers of rows
+        List<WebElement> rows = driver.findElements(By.xpath("//tr"));
+        System.out.println(rows.size());
+
+        //get row 2
+        WebElement germany = driver.findElement(By.xpath("//*[@id='customers']//tr[2]"));
+        System.out.println(germany.getText());
+        System.out.println("************************************");
+
+        //get row 2, 2 element
+        WebElement maria = driver.findElement(By.xpath("//*[@id='customers']//tr[2]//td[2]"));
+        System.out.println(maria.getText());
+        System.out.println("*******************************");
+
+        //get row 2, last element
+        WebElement last = driver.findElement(By.xpath("//*[@id='customers']//tr[2]//td[last()]"));
+        System.out.println(last.getText());
+    }
 }
+
