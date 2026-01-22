@@ -118,5 +118,28 @@ public class FindElementTest {
         driver.findElement(By.cssSelector("[type='submit']"));
         driver.findElement(By.cssSelector(".title-container span.title")); // class + <space> + tag + class
     }
+    @Test
+    public void findSameElementsByCssSelector_DemoWebShop() {
 
+        driver.get("https://demowebshop.tricentis.com/");
+
+        // ===== element found earlier by TAG =====
+        // tag: input -> css: input
+        WebElement input = driver.findElement(By.cssSelector("input"));
+        System.out.println("Input displayed: " + input.isDisplayed());
+
+        // ===== element found earlier by ID =====
+        // id: small-searchterms -> css: #small-searchterms
+        WebElement searchInput = driver.findElement(By.cssSelector("#small-searchterms"));
+        System.out.println("Search input id: " + searchInput.getAttribute("id"));
+
+        // ===== element found earlier by CLASS =====
+        // class: header-logo -> css: .header-logo
+        WebElement logo = driver.findElement(By.cssSelector(".header-logo"));
+        System.out.println("Logo displayed: " + logo.isDisplayed());
+
+        // class: cart-label -> css: .cart-label
+        WebElement cart = driver.findElement(By.cssSelector(".cart-label"));
+        System.out.println("Cart text: " + cart.getText());
+    }
 }
