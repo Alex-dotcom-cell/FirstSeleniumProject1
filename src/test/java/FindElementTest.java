@@ -67,4 +67,56 @@ public class FindElementTest {
         System.out.println(description.getText());
     }
 
+    @Test
+    public void findElementByLinkText() {
+        WebElement linkText = driver.findElement(By.linkText("Let the car work"));
+        System.out.println(linkText.getText());
+    }
+
+    @Test
+    public void findElementByPartialLinkText(){
+        WebElement partialLink = driver.findElement(By.partialLinkText("work"));
+        System.out.println(partialLink.getText());
+    }
+
+    @Test
+    public void findElementByCssSelector() {
+        // driver.findElement(By.tagName("h1"));
+        //tag name "h1" -> css "h1"
+        driver.findElement(By.cssSelector("h1"));
+
+        //driver.findElement(By.id("city"));
+        // id "city" -> css "#city"
+        driver.findElement(By.cssSelector("#city"));
+
+        // driver.findElement(By.className("telephone"));
+        // class "telephone" -> css ".telephone"
+        driver.findElement(By.cssSelector(".telephone"));
+
+        // [attr='par']
+        driver.findElement(By.cssSelector("[href='/search']"));
+        driver.findElement(By.cssSelector("[for='city']"));
+
+        //contains -> *
+        driver.findElement(By.cssSelector("[href*='car']"));
+        //start -> ^
+        driver.findElement(By.cssSelector("[href^='/let']"));
+        //end to -> $
+        driver.findElement(By.cssSelector("[href$='work']"));
+
+        //composite cssSelector
+        driver.findElement(By.cssSelector("a.navigation-link[href='/search']"));// tag+class+pare
+        driver.findElement(By.cssSelector("div.social-networks")); // tag+class
+
+        driver.findElement(By.cssSelector(".logo>img")); // > one step below
+        driver.findElement(By.cssSelector(".feedback .feedback-date")); // <space> one or more steps below
+
+        //<tag> or <id> or <class>:nth-child(n)
+        WebElement feedback = driver.findElement(By.cssSelector(".feedback:nth-child(5)"));
+        System.out.println(feedback.getText());
+
+        driver.findElement(By.cssSelector("[type='submit']"));
+        driver.findElement(By.cssSelector(".title-container span.title")); // class + <space> + tag + class
+    }
+
 }
